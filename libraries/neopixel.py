@@ -1,8 +1,19 @@
 # Adafruit NeoPixel library port to the rpi_ws281x library.
 # Author: Tony DiCola (tony@tonydicola.com), Jeremy Garff (jer@jers.net)
-import atexit
+import subprocess
 
-import _rpi_ws281x as ws
+
+try:
+	import rpi_ws281x as ws
+except ImportError:
+	try:
+		import _rpi_ws281x as ws
+	except ImportError:
+		subprocess.run(['./venv/bin/pip', 'install', 'rpi_ws281x'])
+		# noinspection PyUnresolvedReferences
+		import rpi_ws281x as ws
+
+import atexit
 
 
 def Color(red, green, blue, white = 0):
@@ -103,14 +114,14 @@ class Adafruit_NeoPixel(object):
 		resp = ws.ws2811_init(self._leds)
 		if resp != ws.WS2811_SUCCESS:
 			message = ws.ws2811_get_return_t_str(resp)
-			raise RuntimeError('ws2811_init failed with code {0} ({1})'.format(resp, message))
+			raise RuntimeError(f'ws2811_init failed with code {resp} ({message})')
 
 	def show(self):
 		"""Update the display with the data from the LED buffer."""
 		resp = ws.ws2811_render(self._leds)
 		if resp != ws.WS2811_SUCCESS:
 			message = ws.ws2811_get_return_t_str(resp)
-			raise RuntimeError('ws2811_render failed with code {0} ({1})'.format(resp, message))
+			raise RuntimeError(f'ws2811_render failed with code {resp} ({message})')
 
 	def setPixelColor(self, n, color):
 		"""Set LED at position n to the provided 24-bit color value (in RGB order).
