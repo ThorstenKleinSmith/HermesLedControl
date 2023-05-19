@@ -19,8 +19,8 @@ import time
 
 class CustomLedPattern(LedPattern):
 
-	def __init__(self, controller: LedsController):
-		super().__init__(controller)
+    def __init__(self, controller: LedsController):
+        super().__init__(controller)
         self._colors = {
             'black'      : [  0,   0,   0, 0],
             'blue'       : [  0,   0, 255, self._controller.defaultBrightness],
