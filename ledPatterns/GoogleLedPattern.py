@@ -70,7 +70,7 @@ class GoogleHomeLedPattern(LedPattern):
 		for _ in range(steps):
 			self._rotateImage(degreesPerLed)
 			self._displayImage()
-			time.sleep(0.02)
+			time.sleep(0.04)
 
 		time.sleep(0.5)
 
@@ -89,7 +89,7 @@ class GoogleHomeLedPattern(LedPattern):
 			if brightness <= 10 or brightness >= self._controller.defaultBrightness:
 				direction *= -1
 
-			time.sleep(0.005)
+			time.sleep(0.01)
 
 
 	def think(self):
@@ -100,14 +100,14 @@ class GoogleHomeLedPattern(LedPattern):
 			for i in range(self._numLeds):
 				self._image[i][3] = brightness
 			self._displayImage()
-			time.sleep(0.002)
+			time.sleep(0.004)
 
 		while brightness < self._controller.defaultBrightness:
 			brightness += 1
 			for led in self._image:
 				led[3] = brightness
 			self._displayImage()
-			time.sleep(0.002)
+			time.sleep(0.004)
 
 		degreesPerLed = 360 / self._numLeds
 
@@ -120,7 +120,7 @@ class GoogleHomeLedPattern(LedPattern):
 			if angle >= 360:
 				angle = 0
 
-			time.sleep(0.1)
+			time.sleep(0.2)
 
 		diff = 360 - angle
 		steps = int(math.ceil(diff / degreesPerLed))
@@ -128,7 +128,7 @@ class GoogleHomeLedPattern(LedPattern):
 		for _ in range(steps):
 			self._rotateImage(degreesPerLed)
 			self._displayImage()
-			time.sleep(0.02)
+			time.sleep(0.04)
 
 		self.off()
 
@@ -147,7 +147,7 @@ class GoogleHomeLedPattern(LedPattern):
 			if brightness <= 10 or brightness >= self._controller.defaultBrightness:
 				direction *= -1
 
-			time.sleep(0.003)
+			time.sleep(0.006)
 
 
 	def idle(self, *args):

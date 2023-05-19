@@ -152,7 +152,7 @@ class HermesLedControl:
 
 	def connectMqtt(self):
 		try:
-			mqttClient = mqtt.Client()
+			mqttClient = mqtt.Client(self._me)
 
 			if self._mqttUsername and self._mqttPassword:
 				mqttClient.username_pw_set(self._mqttUsername, self._mqttPassword)
