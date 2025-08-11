@@ -152,7 +152,7 @@ class HermesLedControl(object):
 
 	def connectMqtt(self):
 		try:
-			mqttClient = mqtt.Client(self._me)
+			mqttClient = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, self._me)
 
 			if self._mqttUsername and self._mqttPassword:
 				mqttClient.username_pw_set(self._mqttUsername, self._mqttPassword)
@@ -180,7 +180,7 @@ class HermesLedControl(object):
 
 
 	# noinspection PyUnusedLocal
-	def onConnect(self, client, userdata, flags, rc):
+	def onConnect(self, client, userdata, flags, rc, properties):
 		time.sleep(0.1)
 		self._mqttClient.subscribe([
 			(self._SUB_ON_HOTWORD, 0),
@@ -213,7 +213,8 @@ class HermesLedControl(object):
 
 
 	# noinspection PyUnusedLocal
-	def onMessage(self, client, userdata, message: MQTTMessage):
+	def onMessage(self, client, userdata, message):
+	
 		payload = dict()
 
 		if hasattr(message, 'payload') and message.payload:
