@@ -125,7 +125,7 @@ class CustomLedPattern(LedPattern):
         #self._controller.toggleState()
 
     def onStart(self, *args):
-        self._logger.info('onStart')
+		self._logger.info('onStart->idle')
         self.idle()
 
     def onStop(self, *args):
